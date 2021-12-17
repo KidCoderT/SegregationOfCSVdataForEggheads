@@ -82,6 +82,7 @@ def convert_to_dict(list_of_items):
     else:
         return []
 
+repeat_amount = 15
 
 with open('data.csv', newline='', encoding='utf-8') as csv_file:
     text = csv.reader(csv_file, csv.excel, quotechar='|')
@@ -91,14 +92,22 @@ with open('data.csv', newline='', encoding='utf-8') as csv_file:
 
     header = lines_list.pop(0)
 
-    parents_response_list = convert_to_dict(clean_list((clean_list(clean_list(get_data(8, 22, lines_list, header))))))
-    write_to_csv("parents.csv", parents_response_list)
+    parents_response_list = clean_list(get_data(8, 22, lines_list, header))
+    for _ in range(repeat_amount):
+        parents_response_list = clean_list(parents_response_list)
+    write_to_csv("parents.csv", convert_to_dict(parents_response_list))
 
-    children_response_list = convert_to_dict(clean_list(clean_list(get_data(22, 32, lines_list, header))))
-    write_to_csv("kids.csv", children_response_list)
+    children_response_list = clean_list(get_data(22, 32, lines_list, header))
+    for _ in range(repeat_amount):
+        children_response_list = clean_list(children_response_list)
+    write_to_csv("kids.csv", convert_to_dict(children_response_list))
 
-    teachers_response_list = convert_to_dict(clean_list(clean_list(clean_list(get_data(32, 39, lines_list, header)))))
-    write_to_csv("teachers.csv", teachers_response_list)
+    teachers_response_list = clean_list(get_data(32, 39, lines_list, header))
+    for _ in range(repeat_amount):
+        teachers_response_list = clean_list(teachers_response_list)
+    write_to_csv("teachers.csv", convert_to_dict(teachers_response_list))
 
-    others_response_list = convert_to_dict(clean_list(clean_list(clean_list(get_data(39, -1, lines_list, header)))))
-    write_to_csv("others.csv", others_response_list)
+    others_response_list = clean_list(get_data(39, -1, lines_list, header))
+    for _ in range(repeat_amount):
+        others_response_list = clean_list(others_response_list)
+    write_to_csv("others.csv", convert_to_dict(others_response_list))
